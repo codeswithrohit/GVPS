@@ -1,59 +1,71 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [active, setActive] = useState("Home");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname(); 
 
   const menu = [
-    "Home",
-    "Academic",
-    "Pages",
-    "Admissions",
-    "Courses",
-    "Athletics",
-    "School Life",
+    { name: "Home", path: "/" },
+    { name: "Academic", path: "/nav-pages/academic" },
+    { name: "Admissions", path: "/nav-pages/admissions" },
+    { name: "Courses", path: "/nav-pages/courses" },
+    { name: "Athletics", path: "/nav-pages/athletics" },
+    { name: "School Life", path: "/nav-pages/school-life" },
+    { name: "Student Login", path: "/student" },
   ];
 
   return (
-    <header className="w-full bg-[#1c2143] text-white">
+    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-[#1c2143]/95 to-[#232a5c]/95 backdrop-blur-md shadow-md">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
-        
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-red-600 flex items-center justify-center text-white font-bold rounded-sm">
-            K
-          </div>
-          <div className="text-lg font-semibold tracking-wide">
-            Kingster <span className="font-light">HighSchool</span>
+          <Image
+            src="/logo1.png"
+            alt="Logo"
+            width={40}
+            height={40}
+            className="object-contain"
+          />
+          <div className="text-lg font-semibold tracking-wide text-white">
+            Gautam Valley{" "}
+            <span className="font-light text-gray-300">Public School</span>
           </div>
         </div>
 
-        {/* Menu */}
+        {/* Desktop Menu */}
         <nav className="hidden lg:flex items-center gap-10 text-sm font-medium">
           {menu.map((item) => (
-            <div key={item} className="relative">
+            <div key={item.name} className="relative">
               <Link
-                href="#"
-                onClick={() => setActive(item)}
-                className={`transition ${
-                  active === item ? "text-white" : "text-gray-300 hover:text-white"
+                href={item.path}
+                onClick={() => setActive(item.name)}
+                className={`transition duration-300 ${
+                  active === item.name
+                    ? "text-white"
+                    : "text-gray-300 hover:text-white"
                 }`}
               >
-                {item}
+                {item.name}
               </Link>
 
-              {/* Active underline */}
-              {active === item && (
-                <div className="absolute left-0 -bottom-3 w-full h-[2px] bg-red-600"></div>
+              {active === item.name && (
+                <div className="absolute left-0 -bottom-3 w-full h-[2px] bg-red-500 rounded-full"></div>
               )}
             </div>
           ))}
         </nav>
 
-        {/* Search */}
-        <div className="flex items-center">
-          <button className="text-gray-300 hover:text-white">
+        {/* Right Section */}
+        <div className="flex items-center gap-4">
+          {/* Search */}
+          <button className="text-gray-300 hover:text-white transition hidden lg:block">
             <svg
               className="w-5 h-5"
               fill="none"
@@ -68,8 +80,40 @@ export default function Navbar() {
               />
             </svg>
           </button>
+
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="lg:hidden text-white"
+          >
+            {mobileOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-[#1c2143] px-6 py-4 space-y-4 text-sm">
+          {menu.map((item) => {
+            const isActive = pathname === item.path;
+
+            return (
+              <Link
+                key={item.name}
+                href={item.path}
+                onClick={() => setMobileOpen(false)}
+                className={`block px-3 py-2 rounded-md transition ${
+                  isActive
+                    ? "bg-red-500 text-white"
+                    : "text-gray-300 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {item.name} 
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </header>
   );
 }

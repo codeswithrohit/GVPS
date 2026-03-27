@@ -29,7 +29,7 @@ export default function HeroSection() {
 
           {/* Big Heading */}
           <h1 className="text-white font-serif font-bold text-5xl sm:text-6xl lg:text-7xl leading-tight mb-8">
-            Kingster School
+            Gautam Valley Public School
           </h1>
 
           {/* Button */}

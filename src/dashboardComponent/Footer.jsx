@@ -48,9 +48,9 @@ export default function Footer() {
         </div>
 
         {/* Right (Red) */}
-        <div className="bg-red-600 flex items-center justify-center text-white font-bold text-lg">
-          Apply To Kingster
-        </div>
+        <Link href="/admissionPage" className="bg-red-600 flex items-center justify-center text-white font-bold text-lg">
+          Apply To Gautam Valley
+        </Link>
       </div>
 
       {/* MAIN FOOTER */}
@@ -60,11 +60,17 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-red-600 flex items-center justify-center text-white font-bold">
-                K
+              <div >
+                <img
+                            src="/logo1.png"
+                            alt="Logo"
+                            width={40}
+                            height={40}
+                            className="object-contain"
+                          />
               </div>
               <h2 className="text-lg font-bold">
-                Kingster <span className="text-gray-400 font-normal">HighSchool</span>
+                Gautam Valley <span className="text-gray-400 font-normal">Public School</span>
               </h2>
             </div>
 

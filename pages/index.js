@@ -13,7 +13,6 @@ import React from 'react'
 const index = () => {
   return (
     <div>
-      <Navbar/>
       <HeroSection/>
       <FeaturesBar/>
       {/* <AboutSection/> */}
@@ -22,7 +21,6 @@ const index = () => {
       <EventsSection/>
       <CourseSearch/>
       <BottomInfoSection/>
-      <Footer/>
     </div>
   )
 }
